@@ -52,20 +52,26 @@ function App() {
   const [isTyping, setIsTyping] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
+  const clearHistory = () => {
+    localStorage.clear();
+    setRecentHistory([]);
+  }
+
   return (
     <>
       <div className="grid grid-cols-5 h-screen text-center border border-gray-500">
         {/* Search History */}
         
-        <div className="col-span-1 bg-zinc-800 text-white flex justify-center gap-2 pt-3 border border-gray-500">
+        <div className="col-span-1 bg-zinc-800  border border-gray-500">
           {/* <div>
             Recent Search
           <Trash2 />
           </div> */}
-          <ul>
+          <h1 className="text-2xl text-white  flex justify-between gap-3 px-4 border-2 rounded bg-zinc-600 border-zinc-600">Recent Search <span className="pt-1 cursor-pointer" onClick={clearHistory}><Trash2/></span></h1>
+          <ul className=" text-left overflow-auto " >
             {
               recentHistory && recentHistory.map((item) => (
-                <li>{item}</li>
+                <li className="p-1 pl-4 text-zinc-400 cursor-pointer  hover:bg-zinc-700 hover:border-2 hover:rounded-xl hover:text-zinc-300 truncate " >{item}</li>
               ))
             }
           </ul>
