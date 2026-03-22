@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 // import { checkHeading, replaceHeadingStars } from '../helper';
-const Answers = ({ ans, type}) => {
+const Answers = ({ ans}) => {
  
   // const [heading ,setHeading] = useState(false);
   // const[answer,setAnswer] = useState(ans);

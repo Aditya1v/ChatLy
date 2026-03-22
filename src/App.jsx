@@ -3,19 +3,30 @@ import { SmilePlus, Sparkles, Send, Trash2, Menu, Key } from "lucide-react";
 import { URL } from "./constants";
 import Answers from "./components/Answers";
 
-
 function App() {
   const [querry, setQuerry] = useState("");
   const [result, setResult] = useState([]);
+  const [recentHistory, setRecentHistory] = useState(JSON.parse(localStorage.getItem("history")));
 
   //Logic for API
   const payload = {
-      contents: [ {
-          parts: [{ text: querry }],
-          // "Format your response in clean markdown. Use code blocks with language."
-      },],
+    contents: [
+      {
+        parts: [{ text: querry }],
+        // "Format your response in clean markdown. Use code blocks with language."
+      },
+    ],
   };
   const askQuerry = async () => {
+    if (localStorage.getItem("history")) {
+      let history = JSON.parse(localStorage.getItem("history"));
+      history = [querry, ...history];
+      localStorage.setItem("history", JSON.stringify(history));
+      setRecentHistory(history)
+    } else {
+      localStorage.setItem("history", JSON.stringify([querry]));
+      setRecentHistory([querry])
+    }
 
     let response = await fetch(URL, {
       method: "POST",
@@ -25,13 +36,17 @@ function App() {
     response = await response.json();
 
     let dataString = response.candidates[0].content.parts[0].text;
-    dataString=dataString.split("* ")
-    dataString=dataString.map((item) => item.trim())
+    dataString = dataString.split("* ");
+    dataString = dataString.map((item) => item.trim());
 
     // console.log(dataString);
-    setResult([...result , {type: 'q' , text:querry} ,{ type: 'a',text:dataString}  ]);
+    setResult([
+      ...result,
+      { type: "q", text: querry },
+      { type: "a", text: dataString },
+    ]);
   };
-console.log(result);
+  console.log(recentHistory);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -41,9 +56,19 @@ console.log(result);
     <>
       <div className="grid grid-cols-5 h-screen text-center border border-gray-500">
         {/* Search History */}
+        
         <div className="col-span-1 bg-zinc-800 text-white flex justify-center gap-2 pt-3 border border-gray-500">
-          Recent Search
+          {/* <div>
+            Recent Search
           <Trash2 />
+          </div> */}
+          <ul>
+            {
+              recentHistory && recentHistory.map((item) => (
+                <li>{item}</li>
+              ))
+            }
+          </ul>
         </div>
 
         {/* Top Message */}
@@ -55,22 +80,37 @@ console.log(result);
           <div className="container h-160 overflow-scroll">
             <div className="text-zinc-200 m-2 p-2">
               <ul className="p-3 m-2">
-              {
-                result.map((item,index)=>(
-                 <div key={index} className={item.type=='q' ? 'flex justify-end' : ''}>
-                  {
-                     item.type == 'q' 
-                  ? 
-                  <li key={index} className="text-right  p-1 border-8 border-zinc-700 bg-zinc-700 rounded-tl-3xl rounded-br-3xl rounded-bl-3xl w-fit">
-                    <Answers ans={item.text}  key={index} totalResult={1} type={item.type}/></li> 
-                  :
-                  item.text.map((ansItem,ansIndex)=>(
-                    <li key={ansIndex} className="text-left p-1"><Answers ans={ansItem}  key={ansIndex} totalResult={item.length} type={item.type}/></li>
-                  ))
-                  }
-                 </div>
-                ))
-              }
+                {result.map((item, index) => (
+                  <div
+                    key={index}
+                    className={item.type == "q" ? "flex justify-end" : ""}
+                  >
+                    {item.type == "q" ? (
+                      <li
+                        key={index}
+                        className="text-right  p-1 border-8 border-zinc-700 bg-zinc-700 rounded-tl-3xl rounded-br-3xl rounded-bl-3xl w-fit"
+                      >
+                        <Answers
+                          ans={item.text}
+                          key={index}
+                          totalResult={1}
+                          type={item.type}
+                        />
+                      </li>
+                    ) : (
+                      item.text.map((ansItem, ansIndex) => (
+                        <li key={ansIndex} className="text-left p-1">
+                          <Answers
+                            ans={ansItem}
+                            key={ansIndex}
+                            totalResult={item.length}
+                            type={item.type}
+                          />
+                        </li>
+                      ))
+                    )}
+                  </div>
+                ))}
               </ul>
             </div>
             {/* <div className="pt-18">
