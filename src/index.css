@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @keyframes spinSlow {
   0% {
     transform: rotate(0deg) scale(1);
@@ -30,4 +32,13 @@
 
 .animate-send {
   animation: sendPulse 0.8s ease-in-out 1;
+}
+@theme {
+  --animate-spin: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
