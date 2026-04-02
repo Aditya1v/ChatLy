@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { fetchChatResponse } from "../services/chatService";
-import { buildConversation, generateChatTitle } from "../utils/Chathelpers";
+import { buildConversation, generateChatTitle } from "../utils/chatHelpers";
 
 const ChatContext = createContext();
 
