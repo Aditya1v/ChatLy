@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { fetchChatResponse } from "../services/chatService";
-import { buildConversation, generateChatTitle } from "../utils/chatHelpers";
+import { buildConversation, generateChatTitle } from "../utils/Chathelpers";
 
 const ChatContext = createContext();
 
@@ -41,7 +41,8 @@ export const ChatProvider = ({ children }) => {
 
   const askQuerry = async () => {
     if (!querry) return;
-
+     
+     setQuerry(""); 
     const currentChat = chats.find((c) => c.id === currentChatId);
 
     const tempMessages = [
@@ -85,11 +86,15 @@ export const ChatProvider = ({ children }) => {
       setChats(updatedChats);
       setResult(finalMessages);
       localStorage.setItem("chats", JSON.stringify(updatedChats));
-      setQuerry("");
+      
     } catch {
       alert("API error");
     }
   };
+  const deleteChat = (id) => {
+  const updated = chats.filter(chat => chat.id !== id);
+  setChats(updated);
+};
 
   return (
     <ChatContext.Provider
@@ -101,6 +106,7 @@ export const ChatProvider = ({ children }) => {
         askQuerry,
         loadChat,
         createNewChat,
+        deleteChat
       }}
     >
       {children}

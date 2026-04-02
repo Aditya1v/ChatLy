@@ -1,8 +1,10 @@
 import Answers from "./Answers";
-const QuerryAnswer = ({ item, index }) => {
+
+const QuerryAnswer = ({ item }) => {
+  // Loader
   if (item.type === "loading") {
     return (
-      <div className="flex justify-start">
+      <div className="flex justify-start animate-slideUp">
         <div className="bg-zinc-800 px-4 py-2 rounded-2xl flex gap-1">
           <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></span>
           <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
@@ -13,16 +15,22 @@ const QuerryAnswer = ({ item, index }) => {
   }
 
   return (
-    <div className={item.type === "q" ? "flex justify-end" : ""}>
-      <li
-        className={`p-2 max-w-xl ${
-          item.type === "q"
-            ? "text-right text-white border-8 dark:border-zinc-700 border-red-100 dark:bg-zinc-700 bg-red-100 rounded-tl-3xl rounded-br-3xl rounded-bl-3xl w-fit ml-auto"
-            : "text-left text-zinc-200 bg-zinc-800 rounded-2xl"
+    <div className="w-full flex animate-slideUp">
+      <div
+        className={`max-w-xl ${
+          item.type === "q" ? "ml-auto text-right" : "mr-auto text-left"
         }`}
       >
-        <Answers ans={item.text} totalResult={1} type={item.type} />
-      </li>
+        <div
+          className={`p-3 transition-all duration-300 ${
+            item.type === "q"
+              ? "bg-blue-500 text-white px-4 py-2 rounded-2xl rounded-br-sm"
+              : "bg-white text-black dark:bg-zinc-800 dark:text-white rounded-2xl"
+          }`}
+        >
+          {item.type === "q" ? item.text : <Answers ans={item.text} />}
+        </div>
+      </div>
     </div>
   );
 };
