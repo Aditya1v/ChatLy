@@ -9,7 +9,7 @@ function Sidebar({ isOpen, setIsOpen }) {
 
   return (
     <>
-      {/* Hamburger Button (Mobile) */}
+      {/* Hamburger Button(Mobile) */}
       <button
         onClick={() => setIsOpen(true)}
         className={`md:hidden fixed top-4 left-4 z-50 
