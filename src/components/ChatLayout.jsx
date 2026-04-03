@@ -21,7 +21,7 @@ const ChatLayout = () => {
   }, [result]);
 
   return (
-    <div className="col-span-4 flex flex-col h-screen overflow-hidden relative">
+    <div className="col-span-4 flex flex-col h-screen  relative">
       
       {/* Header */}
      <div
@@ -43,8 +43,8 @@ const ChatLayout = () => {
       
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto px-3 md:px-10 py-6">
-        <ul className="space-y-4 max-w-[85%] md:max-w-xl mx-auto">
+      <div className="flex-1 overflow-y-auto min-h-0 px-3 md:px-10 pb-24 py-6">
+        <ul className="space-y-4 w-full max-w-xl mx-auto">
           {result.map((item, index) => (
             <QuerryAnswer key={index} item={item} />
           ))}
@@ -54,7 +54,7 @@ const ChatLayout = () => {
       
 
       {/* Search Bar */}
-      <div className="pb-4 md:pb-15 sticky bottom-0 bg-transparent backdrop-blur-sm">
+      <div className="pb-4 md:pb-15  bg-transparent backdrop-blur-sm">
         <div
           className={`flex items-center w-[95%] md:w-1/2 mx-auto rounded-full border p-1 transition-all duration-300
           ${
