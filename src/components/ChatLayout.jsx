@@ -49,8 +49,8 @@ const ChatLayout = ({ isOpen }) => {
 
       {/* Search Bar */}
       <div
-        className={`fixed bottom-4 left-1/2 -translate-x-1/2 w-full px-3 z-50 
-        transition-all duration-300 ease-in-out
+        className={`fixed bottom-6 left-0 w-full px-3 z-40 md:pl-[20%]  
+        transition-all duration-300 ease-in-out 
         ${isOpen ? "translate-y-24 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"}
         `}
       >
