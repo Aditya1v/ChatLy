@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { ChatContext } from "./chat-store";
 import { fetchChatResponse } from "../services/chatService";
 import { buildConversation, generateChatTitle } from "../utils/chatHelpers";
-
-const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
   const [querry, setQuerry] = useState("");
@@ -17,7 +16,7 @@ export const ChatProvider = ({ children }) => {
       setCurrentChatId(chats[0].id);
       setResult(chats[0].messages);
     }
-  }, [chats]);
+  }, [chats, currentChatId]);
 
   const createNewChat = () => {
     const newChat = {
@@ -35,12 +34,19 @@ export const ChatProvider = ({ children }) => {
 
   const loadChat = (id) => {
     const chat = chats.find((c) => c.id === id);
+
+    if (!chat) {
+      return;
+    }
+
     setCurrentChatId(id);
     setResult(chat.messages);
   };
 
   const askQuerry = async () => {
-    if (!querry) return;
+    const prompt = querry.trim();
+
+    if (!prompt) return;
 
     let chatId = currentChatId;
     let updatedChats = [...chats];
@@ -65,7 +71,7 @@ export const ChatProvider = ({ children }) => {
 
     const tempMessages = [
       ...(currentChat?.messages || []),
-      { type: "q", text: querry },
+      { type: "q", text: prompt },
       { type: "a", text: "Typing", loading: true },
     ];
 
@@ -79,7 +85,7 @@ export const ChatProvider = ({ children }) => {
       const payload = {
         contents: [
           ...conversation,
-          { role: "user", parts: [{ text: querry }] },
+          { role: "user", parts: [{ text: prompt }] },
         ],
       };
 
@@ -87,9 +93,10 @@ export const ChatProvider = ({ children }) => {
 
       const finalMessages = [
         ...(currentChat?.messages || []),
-        { type: "q", text: querry },
-        { type: "a", text: answer ,  loading: false },
+        { type: "q", text: prompt },
+        { type: "a", text: answer, loading: false },
       ];
+
       typeText(answer, (partialText) => {
         setResult((prev) => {
           const updated = [...prev];
@@ -97,12 +104,13 @@ export const ChatProvider = ({ children }) => {
           updated[updated.length - 1] = {
             type: "a",
             text: partialText,
-            loading:false,
+            loading: false,
           };
 
           return updated;
         });
       });
+
       setTimeout(() => {
         setChats(updatedChats);
         localStorage.setItem("chats", JSON.stringify(updatedChats));
@@ -113,22 +121,32 @@ export const ChatProvider = ({ children }) => {
           ? {
               ...chat,
               messages: finalMessages,
-              title: generateChatTitle(querry, chat.title),
+              title: generateChatTitle(prompt, chat.title),
             }
           : chat,
       );
 
       setChats(updatedChats);
-      // setResult(finalMessages);
       localStorage.setItem("chats", JSON.stringify(updatedChats));
     } catch {
       alert("API Token Limit Exceeds!🥲");
     }
   };
+
   const deleteChat = (id) => {
     const updated = chats.filter((chat) => chat.id !== id);
+
     setChats(updated);
+    localStorage.setItem("chats", JSON.stringify(updated));
+
+    if (currentChatId === id) {
+      const nextChat = updated[0];
+
+      setCurrentChatId(nextChat?.id || null);
+      setResult(nextChat?.messages || []);
+    }
   };
+
   const typeText = (text, callback) => {
     let index = 0;
 
@@ -150,6 +168,7 @@ export const ChatProvider = ({ children }) => {
         setQuerry,
         result,
         chats,
+        currentChatId,
         askQuerry,
         loadChat,
         createNewChat,
@@ -160,5 +179,3 @@ export const ChatProvider = ({ children }) => {
     </ChatContext.Provider>
   );
 };
-
-export const useChat = () => useContext(ChatContext);

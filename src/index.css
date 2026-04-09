@@ -1,59 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
 @import "tailwindcss";
+
 @custom-variant dark (&:is(.dark *));
-/* animations */
-@keyframes spinSlow {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(10deg) scale(1.1); }
-  100% { transform: rotate(0deg) scale(1); }
+
+:root {
+  color-scheme: light;
+  --bg: #eef3f9;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --surface: rgba(255, 255, 255, 0.62);
+  --surface-strong: rgba(255, 255, 255, 0.82);
+  --surface-border: rgba(148, 163, 184, 0.18);
 }
 
-.animate-spin-slow {
-  animation: spinSlow 1.2s ease-in-out infinite;
+.dark {
+  color-scheme: dark;
+  --bg: #06101d;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --surface: rgba(8, 15, 28, 0.72);
+  --surface-strong: rgba(11, 18, 32, 0.88);
+  --surface-border: rgba(148, 163, 184, 0.14);
 }
 
-@keyframes sendPulse {
-  0% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.2) rotate(10deg); }
-  100% { transform: scale(1) rotate(0deg); }
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 26%),
+    radial-gradient(circle at 88% 14%, rgba(59, 130, 246, 0.16), transparent 24%),
+    radial-gradient(circle at bottom center, rgba(99, 102, 241, 0.14), transparent 26%),
+    var(--bg);
+  color: var(--text-main);
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  margin: 0;
+  overflow: hidden;
 }
 
-.animate-slideUp {
-  animation: slideUp 0.4s ease-out;
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
 }
 
-.animate-send {
-  animation: sendPulse 0.8s ease-in-out 1;
+* {
+  box-sizing: border-box;
 }
 
-.typing::after {
-  content: "|";
-  animation: blink 1s infinite;
+button,
+input,
+textarea {
+  font: inherit;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+::selection {
+  background: rgba(37, 99, 235, 0.18);
 }
 
-.dots::after {
-  content: "...";
-  animation: dots 1.5s steps(3, end) infinite;
+#root {
+  height: 100dvh;
 }
 
-@keyframes dots {
-  0% { content: "."; }
-  33% { content: ".."; }
-  66% { content: "..."; }
+.app-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.8)),
+    rgba(255, 255, 255, 0.32);
+  border: 1px solid var(--surface-border);
+  box-shadow:
+    0 28px 100px -50px rgba(15, 23, 42, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(28px);
+}
+
+.dark .app-shell {
+  background:
+    linear-gradient(180deg, rgba(7, 14, 27, 0.88), rgba(10, 18, 32, 0.95)),
+    rgba(9, 15, 28, 0.7);
+  box-shadow:
+    0 30px 120px -60px rgba(2, 6, 23, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(24px);
+}
+
+.glass-panel-strong {
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(26px);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-position: center center;
+  background-size: 34px 34px;
+}
+
+.dark .soft-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+}
+
+.hero-orb {
+  filter: blur(60px);
+}
+
+.bubble-shell {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+.bubble-copy {
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.composer-textarea {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  transition: height 160ms ease;
+}
+
+.markdown-body :where(p:first-child) {
+  margin-top: 0;
+}
+
+.markdown-body :where(p:last-child) {
+  margin-bottom: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.55);
 }
