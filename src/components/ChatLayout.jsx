@@ -117,7 +117,7 @@ const ChatLayout = ({ isOpen }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={transition}
       >
-        <div className="max-w-3xl">
+        {/* <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full bg-slate-950/6 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:bg-white/6 dark:text-slate-300">
             <Sparkles className="h-3.5 w-3.5 text-sky-500" />
             Intelligent Workspace
@@ -130,9 +130,9 @@ const ChatLayout = ({ isOpen }) => {
             through ideas. The layout stays focused while motion makes each
             interaction feel smooth and deliberate.
           </p>
-        </div>
+        </div> */}
 
-        <div className="grid gap-2 sm:grid-cols-3 xl:w-[29rem]">
+        {/* <div className="grid gap-2 sm:grid-cols-3 xl:w-[29rem]">
           <div className="glass-panel rounded-[20px] px-3 py-2.5">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
               Conversations
@@ -169,7 +169,7 @@ const ChatLayout = ({ isOpen }) => {
               Motion softens changes across the whole UI.
             </p>
           </div>
-        </div>
+        </div> */}
       </MotionHeader>
 
       <div className="relative z-10 flex-1 overflow-y-auto px-3 py-4 md:px-6 md:py-5">
@@ -183,123 +183,42 @@ const ChatLayout = ({ isOpen }) => {
               exit={{ opacity: 0, y: -10 }}
               transition={transition}
             >
-              <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/75 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 shadow-sm dark:bg-slate-900/65 dark:text-slate-300">
-                  <TimerReset className="h-3.5 w-3.5 text-sky-500" />
-                  Ready When You Are
-                </div>
+              {/* Heading */}
+  <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+    What do you want to work on?
+  </h1>
 
-                <h2 className="font-display mt-4 text-3xl font-bold tracking-tight text-slate-950 md:text-5xl dark:text-white">
-                  Bring clarity to every question.
-                </h2>
+  {/* Subtext */}
+  <p className="mt-3 max-w-lg text-sm text-slate-500 dark:text-slate-400">
+    Ask questions, solve problems, or build something step by step.
+  </p>
 
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 md:text-base dark:text-slate-300">
-                  This workspace is designed to feel modern, composed, and
-                  fast. Start with a prompt below or type your own question to
-                  jump straight into the conversation.
-                </p>
+  {/* Input-style quick actions */}
+  <div className="mt-6 w-full max-w-xl space-y-3">
+    {[
+      "Debug my code",
+      "Plan a project",
+      "Explain a concept",
+      "Write something professional",
+    ].map((item, i) => (
+      <MotionButton
+        key={item}
+        onClick={() => {
+          setQuerry(item);
+          requestAnimationFrame(() => textareaRef.current?.focus());
+        }}
+        className="w-full text-left px-4 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.98 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.06 }}
+      >
+        {item}
+      </MotionButton>
+    ))}
+  </div>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {workflowPills.map((pill) => (
-                    <span
-                      key={pill}
-                      className="rounded-full border border-white/65 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300"
-                    >
-                      {pill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid gap-3 xl:grid-cols-[1.35fr,0.85fr]">
-                <div className="glass-panel-strong rounded-[28px] p-4 md:p-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                        Launchpad
-                      </p>
-                      <h3 className="font-display mt-1.5 text-lg font-semibold text-slate-950 dark:text-white">
-                        Start with something useful
-                      </h3>
-                    </div>
-                    <div className="rounded-full bg-sky-500/10 px-3 py-1 text-[11px] font-semibold text-sky-700 dark:bg-sky-400/10 dark:text-sky-200">
-                      Click to fill the composer
-                    </div>
-                  </div>
-
-                  <div className="mt-4 grid gap-3 md:grid-cols-2">
-                    {suggestionCards.map((card, index) => {
-                      const Icon = card.icon;
-
-                      return (
-                        <MotionButton
-                          key={card.title}
-                          type="button"
-                          onClick={() => handleSuggestionClick(card.prompt)}
-                          className="group rounded-[22px] border border-white/70 bg-white/70 p-4 text-left shadow-sm transition dark:border-white/10 dark:bg-slate-950/45"
-                          whileHover={{ y: -3, scale: 1.01 }}
-                          whileTap={{ scale: 0.985 }}
-                          initial={{ opacity: 0, y: 14 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.08 + index * 0.06, duration: 0.3 }}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] bg-slate-950 text-white shadow-lg shadow-sky-500/10 dark:bg-white dark:text-slate-950">
-                              <Icon className="h-4.5 w-4.5" />
-                            </div>
-
-                            <div className="min-w-0">
-                              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                                {card.eyebrow}
-                              </p>
-                              <h4 className="mt-1.5 text-sm font-semibold text-slate-900 transition group-hover:text-sky-700 dark:text-white dark:group-hover:text-sky-200">
-                                {card.title}
-                              </h4>
-                              <p className="mt-1.5 text-sm leading-6 text-slate-500 dark:text-slate-400">
-                                {card.description}
-                              </p>
-                            </div>
-                          </div>
-                        </MotionButton>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <MotionDiv
-                  className="glass-panel rounded-[28px] p-4 md:p-5"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.16, duration: 0.32 }}
-                >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                    Workflow
-                  </p>
-                  <h3 className="font-display mt-1.5 text-lg font-semibold text-slate-950 dark:text-white">
-                    Designed to stay out of your way
-                  </h3>
-
-                  <div className="mt-4 space-y-3">
-                    <div className="rounded-[22px] bg-slate-950 px-4 py-3.5 text-white dark:bg-white dark:text-slate-950">
-                      <p className="text-sm font-semibold">Professional tone</p>
-                      <p className="mt-1.5 text-sm leading-6 text-white/72 dark:text-slate-600">
-                        Cleaner surfaces, stronger typography, and less visual
-                        noise give the app a more product-ready presence.
-                      </p>
-                    </div>
-
-                    <div className="rounded-[22px] border border-white/65 bg-white/70 px-4 py-3.5 dark:border-white/10 dark:bg-slate-900/55">
-                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                        Smooth interaction model
-                      </p>
-                      <p className="mt-1.5 text-sm leading-6 text-slate-500 dark:text-slate-400">
-                        Framer Motion now eases in the sidebar, messages,
-                        welcome state, and composer so transitions feel fluid.
-                      </p>
-                    </div>
-                  </div>
-                </MotionDiv>
-              </div>
             </MotionDiv>
           ) : (
             <MotionList
@@ -352,7 +271,7 @@ const ChatLayout = ({ isOpen }) => {
               <textarea
                 ref={textareaRef}
                 rows={1}
-                placeholder="Ask anything: debug an issue, write a professional message, map out a plan, or summarize something complex."
+                placeholder="Ask anything....😁"
                 className="composer-textarea max-h-44 min-h-[52px] flex-1 resize-none bg-transparent px-2 py-2.5 text-[15px] leading-6 text-slate-900 outline-none placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-500"
                 value={querry}
                 onFocus={() => setIsFocused(true)}

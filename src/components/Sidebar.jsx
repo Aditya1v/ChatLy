@@ -65,17 +65,17 @@ function SidebarBody({
             />
           </div>
           <div className="min-w-0">
-            <div className="inline-flex items-center gap-2 rounded-full bg-sky-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-700 dark:bg-sky-400/10 dark:text-sky-200">
+            {/* <div className="inline-flex items-center gap-2 rounded-full bg-sky-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-700 dark:bg-sky-400/10 dark:text-sky-200">
               <Sparkles className="h-3.5 w-3.5" />
               Pro Workspace
-            </div>
+            </div> */}
             <h1 className="font-display mt-3 text-xl font-bold text-slate-950 dark:text-white">
               ChatLy
             </h1>
-            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            {/* <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
               A focused chat surface for research, drafting, debugging, and
               structured conversations.
-            </p>
+            </p> */}
           </div>
         </div>
       </MotionDiv>
@@ -93,9 +93,7 @@ function SidebarBody({
       >
         <div>
           <p className="text-sm font-semibold">Start a new conversation</p>
-          <p className="mt-1 text-xs text-white/70 dark:text-slate-600">
-            Clear the stage for a fresh question.
-          </p>
+          
         </div>
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 transition group-hover:bg-white/15 dark:bg-slate-950/8 dark:group-hover:bg-slate-950/12">
           <Plus size={18} />
@@ -221,27 +219,25 @@ function SidebarBody({
             <p className="text-sm font-semibold text-slate-900 dark:text-white">
               {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             </p>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Adjust the workspace to your environment.
-            </p>
+            
           </div>
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-white dark:bg-white dark:text-slate-950">
             {theme === "dark" ? <SunMedium size={18} /> : <MoonStar size={18} />}
           </div>
         </button>
 
-        {!mobile && (
-          <div className="glass-panel rounded-[24px] px-4 py-4 text-sm leading-6 text-slate-500 dark:text-slate-400">
-            <div className="flex items-center gap-2 text-slate-900 dark:text-white">
-              <Sparkles className="h-4 w-4 text-sky-500" />
-              <span className="font-semibold">Smooth by design</span>
-            </div>
-            <p className="mt-2">
-              Motion softens navigation, message flow, and state changes so the
-              interface feels deliberate end to end.
-            </p>
-          </div>
-        )}
+        {/* {!mobile && (
+          // <div className="glass-panel rounded-[24px] px-4 py-4 text-sm leading-6 text-slate-500 dark:text-slate-400">
+          //   <div className="flex items-center gap-2 text-slate-900 dark:text-white">
+          //     <Sparkles className="h-4 w-4 text-sky-500" />
+          //     <span className="font-semibold">Smooth by design</span>
+          //   </div>
+          //   <p className="mt-2">
+          //     Motion softens navigation, message flow, and state changes so the
+          //     interface feels deliberate end to end.
+          //   </p>
+          // </div>
+        )} */}
       </MotionDiv>
     </div>
   );
