@@ -7,7 +7,7 @@ Deployed and fully functional with Google Gemini API.
 
 ## 🚀 Live Demo
 
-🔗 https://react-ai-chatbot-ten.vercel.app/
+🔗 https://chatly-assistant.vercel.app/
 
 ---
 
