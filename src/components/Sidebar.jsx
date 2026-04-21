@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, easeOut, motion } from "framer-motion";
 import {
   History,
   Menu,
@@ -14,8 +14,8 @@ import { useChat } from "../context/useChat";
 import useTheme from "../hooks/useTheme";
 
 const panelTransition = {
-  duration: 0.45,
-  ease: [0.22, 1, 0.36, 1],
+  duration: 0.25,
+  ease: easeOut,
 };
 
 const MotionAside = motion.aside;
@@ -255,7 +255,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         {isOpen && (
           <>
             <MotionDiv
-              className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-slate-950/35  md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -263,7 +263,7 @@ function Sidebar({ isOpen, setIsOpen }) {
             />
 
             <MotionAside
-              className="fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-sm overflow-hidden md:hidden"
+              className="fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-sm overflow-hidden md:hidden will-change-transform"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
