@@ -36,27 +36,9 @@ function SidebarBody({
   toggleTheme,
 }) {
   return (
-    <div className="flex h-full flex-col gap-4 p-4 md:p-5">
-      <div className="flex items-center justify-between md:hidden">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 shadow-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-300">
-          <Sparkles className="h-3.5 w-3.5 text-sky-500" />
-          Navigation
-        </div>
-        <button
-          onClick={onClose}
-          className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/60 bg-white/75 text-slate-700 transition hover:scale-[1.03] dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-100"
-        >
-          <X size={18} />
-        </button>
-      </div>
-
-      <MotionDiv
-        className="glass-panel-strong rounded-[28px] p-4 shadow-[0_24px_80px_-40px_rgba(15,23,42,0.45)]"
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={panelTransition}
-      >
-        <div className="flex items-start gap-3">
+    <div className="flex h-full min-h-0 flex-col gap-4 p-4 md:p-5">
+      <div className="flex items-center justify-between ">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 shadow-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-300 md:px-2 md:py-1 md:text-[11px]">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[20px] bg-slate-950/90 p-2 shadow-lg shadow-sky-500/10 dark:bg-white/10">
             <img
               src="/favicon.svg"
@@ -64,21 +46,17 @@ function SidebarBody({
               className="h-8 w-8 object-contain"
             />
           </div>
-          <div className="min-w-0">
-            {/* <div className="inline-flex items-center gap-2 rounded-full bg-sky-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-700 dark:bg-sky-400/10 dark:text-sky-200">
-              <Sparkles className="h-3.5 w-3.5" />
-              Pro Workspace
-            </div> */}
-            <h1 className="font-display mt-3 text-xl font-bold text-slate-950 dark:text-white">
+            <h1 className="font-display  text-xl font-bold text-slate-950 dark:text-white">
               ChatLy
             </h1>
-            {/* <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-              A focused chat surface for research, drafting, debugging, and
-              structured conversations.
-            </p> */}
-          </div>
         </div>
-      </MotionDiv>
+        <button
+          onClick={onClose}
+          className="flex h-10 w-10 items-center justify-center md:hidden rounded-2xl border border-white/60 bg-white/75 text-slate-700 transition hover:scale-[1.03] dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-100"
+        >
+          <X size={18} />
+        </button>
+      </div>
 
       <MotionButton
         type="button"
@@ -101,7 +79,7 @@ function SidebarBody({
       </MotionButton>
 
       <MotionSection
-        className="glass-panel flex min-h-0 flex-1 flex-col rounded-[28px] p-3"
+        className="glass-panel flex min-h-0 flex-1 flex-col rounded-[28px] p-2.5"
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...panelTransition, delay: 0.06 }}
@@ -269,7 +247,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Menu size={18} />
       </MotionButton>
 
-      <aside className="hidden w-[340px] shrink-0 border-r border-white/45 md:flex dark:border-white/8">
+      <aside className="hidden w-[340px] shrink-0 overflow-hidden border-r border-white/45 md:flex dark:border-white/8">
         <SidebarBody {...sidebarProps} />
       </aside>
 
@@ -285,13 +263,13 @@ function Sidebar({ isOpen, setIsOpen }) {
             />
 
             <MotionAside
-              className="fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-sm md:hidden"
+              className="fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-sm overflow-hidden md:hidden"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={panelTransition}
             >
-              <div className="app-shell w-full rounded-none rounded-r-[28px]">
+              <div className="app-shell h-full w-full rounded-none rounded-r-[28px] overflow-hidden">
                 <SidebarBody
                   {...sidebarProps}
                   mobile
