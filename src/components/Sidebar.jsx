@@ -112,7 +112,7 @@ function SidebarBody({
                     transition={{ delay: index * 0.04, duration: 0.28 }}
                   >
                     <div
-                      className={`group flex w-full items-center gap-3 rounded-[22px] border px-3 py-3 text-left transition ${
+                      className={`group flex w-full items-start gap-3 rounded-[22px] border px-3 py-2.5 text-left transition ${
                         active
                           ? "border-sky-500/35 bg-sky-500/10 shadow-[0_18px_40px_-28px_rgba(14,165,233,0.6)] dark:border-sky-400/30 dark:bg-sky-400/10"
                           : "border-transparent bg-white/65 hover:border-white/70 hover:bg-white/90 dark:bg-slate-900/45 dark:hover:border-white/10 dark:hover:bg-slate-900/70"
@@ -138,7 +138,7 @@ function SidebarBody({
 
                         <div className="min-w-0 flex-1">
                           <p
-                            className={`truncate text-sm font-semibold ${
+                            className={`line-clamp-1 text-sm font-semibold ${
                               active
                                 ? "text-slate-950 dark:text-white"
                                 : "text-slate-800 dark:text-slate-100"
@@ -146,7 +146,7 @@ function SidebarBody({
                           >
                             {chat.title}
                           </p>
-                          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                          <p className="mt-1 line-clamp-1 text-xs text-slate-500 dark:text-slate-400">
                             {active ? "Current conversation" : "Open chat"}
                           </p>
                         </div>
